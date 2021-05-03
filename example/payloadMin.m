@@ -19,9 +19,9 @@ for i = 1:5
 end
 
 m_engine = min(m_e)
-
-
-
+%sigo = 200
+%B = .8
+%eta = .9
 
 function m_e = me(B,sig0,eta)
     N_B = (B-.6)/.2;
