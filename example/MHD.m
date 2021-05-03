@@ -51,7 +51,7 @@ for i = 2:length(A)-1
     D = sqrt(A(i)/pi*4);
     c = pi*D;   
     f = @(x1,x2,x3,x4) ([(x2-rho)/x2+(x4-u)/x4+(A(i+1)-A(i))/A(i) (x1-P)/x2+x4*(x4-u)+1/2*cf*rho*u^2*c*(l/length(A))/rho/A(i)-G*(1/eta-1)-eta*w/length(A) ...
-        cp*(x3-T)+x4*(x4-u)-ht*2*cp*cf*(Tw-T*(1+(gam-1)/2*M^2))*l/length(A)/D-G*(1/eta-1)*1/eta-(h/length(A))-(w/length(A)) (x3-T)/x3+(x2-rho)/x2-(x1-P)/x1]);
+        cp*(x3-T)+x4*(x4-u)-ht*1/2*cp*cf*(Tw-T*(1+(gam-1)/2*M^2))*c/A(i)*(l/length(A))-G*(1/eta-1)*1/eta-(h/length(A))-(w/length(A)) (x3-T)/x3+(x2-rho)/x2-(x1-P)/x1]);
     q = transpose([P,rho,T,u]);
     [q] = IM.newRap(f,q,p,kmax);
     P = q(1);
