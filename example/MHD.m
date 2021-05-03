@@ -70,7 +70,6 @@ for i = 2:length(A)-1
     Power(i,1) = V(i,1)*I(i,1);
     totalPower = totalPower + Power(i,1);
     i
-    
 end
 Tt2 = T*(1+(gam-1)/2*M^2);
 Pt2 = P*(1+(gam-1)/2*M^2)^(gam/(gam-1));
