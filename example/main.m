@@ -5,7 +5,7 @@ close all
 steps = 100
 cf = 0
 Tw = 0
-eta = .7;
+eta = .8;
 w = 0;
 h = 0;
 A = ones(1,steps)*.2*.2;

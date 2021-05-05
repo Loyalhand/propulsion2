@@ -1,4 +1,4 @@
-function [Pv,Tv,Pt2,Tt2,uv,Mv,thrust,F,mdot0,mdot,V,I,Power,totalPower] = MHD(P0,T0,M,cf,Tw,eta,w,h,ht,A,l,sig0,B,steps,R,gam,height,width)
+function [Pv,Tv,Pt2,Tt2,rho,uv,Mv,thrust,F,mdot0,mdot,V,Ic,Powerc,forcec] = MHD(P0,T0,M,cf,Tw,eta,w,h,ht,A,l,sig0,B,steps,R,gam,height,width)
 % Author: Matt P
 %{
 MHD.m must include IM.m and gauss.m
@@ -41,12 +41,19 @@ V = zeros(steps-1,1);
 I = zeros(steps-1,1);
 Power = zeros(steps-1,1);
 F = zeros(steps-1,1);
+Tt2 = zeros(steps-1,1);
+Pt2 = zeros(steps-1,1);
+Ic = zeros(steps-1,1);
+Powerc = Ic;
+forcec = Ic;
 Pv(1,1)=P;
 rhov(1,1)=rho;
 Tv(1,1)=T;
 uv(1,1)=u;
 Mv(1,1)=M;
-Pow = 0
+Pow = 0;
+F = 0;
+Icumulative = 0;
 for i = 2:length(A)-1
     G = A(i)*sig0*B^2*u^2*l/length(A)/mdot;
     c = 2*width+2*height;   
@@ -64,28 +71,27 @@ for i = 2:length(A)-1
     Tv(i,1)=T;
     uv(i,1)=u;
     Mv(i,1)=M;
-    F(i,1) = Pv(i)/R/T*uv(i,1)*A(i)*(uv(i,1)-uv(i-1,1))+Pv(i)*A(i)-Pv(i-1)*A(i-1);
+    F = Pv(i)/R/T*uv(i,1)*A(i)*(uv(i,1)-uv(i-1,1))+Pv(i)*A(i)-Pv(i-1)*A(i-1) + F
+    forcec(i-1,1) = F;
     V(i-1,1) = B*u/eta*height;
     I(i-1,1) = sig0*(B*u/eta-B*u)*width*(l/length(A));
+    Icumulative = Icumulative + I(i-1,1);
+    Ic(i-1,1) = Icumulative;
     Power(i,1) = V(i-1,1)*I(i-1,1);
-    totalPower = totalPower + Power(i,1)/mdot
-    Pow = (G*(1/eta-1)*1/eta + Pow)
+    totalPower = totalPower + Power(i,1)
+    Powerc(i-1,1) = totalPower;
+    Pow = (G*(1/eta-1)*1/eta*mdot + Pow)
+    Tt2(i,1) = T*(1+(gam-1)/2*M^2);
+    Pt2(i,1) = P*(1+(gam-1)/2*M^2)^(gam/(gam-1));
+    md = rho*u*A(i)
     i
 end
-Tt2 = T*(1+(gam-1)/2*M^2);
-Pt2 = P*(1+(gam-1)/2*M^2)^(gam/(gam-1));
-thrust = P/R/T*u*A(end)*(u-u0)+P*A(end)-P0*A(1);
-P
-T
-Pt2
-Tt2
-u
-M
-thrust
+
+thrust = P/R/T*u*A(end)*(u-u0)+P*A(end)-P0*A(1)
+
 mdot0 = mdot
 mdot = rho*u*A(end)
 if ht ==1
-    Qdot = mdot*(cp*(Tt2-T0*(1+(gam-1)/2*M0^2))-w)
-end
+    Qdot = mdot*(cp*(Tt2-T0*(1+(gam-1)/2*M0^2))-w);
 end
 
