@@ -84,7 +84,7 @@ for i = 2:length(A)-1
     Tt2(i,1) = T*(1+(gam-1)/2*M^2);
     Pt2(i,1) = P*(1+(gam-1)/2*M^2)^(gam/(gam-1));
     md = rho*u*A(i);
-    i
+    i;
 end
 
 thrust = P/R/T*u*A(end)*(u-u0)+P*A(end)-P0*A(1);
