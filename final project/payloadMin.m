@@ -1,3 +1,4 @@
+% initialMass.m
 clc
 clear all
 close all
@@ -10,7 +11,7 @@ for i = 1:5
             eta = k*.1+.6;
             height = .05;
             width = .05 ;
-            steps = 20;
+            steps = 100;
             cf = 0.002;
 %             eta = .9;
             Tw = 220

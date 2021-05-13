@@ -2,20 +2,20 @@ clc
 clear all
 close all
 
-height = .05
-width = .05 
-steps = 15000
-cf = 0.002
+height = .05;
+width = .05 ;
+steps = 100;
+cf = 0.002;
 eta = .8;
-Tw = 220
+Tw = 220;
 w = 0;
 h = 0;
 A = ones(1,steps)*height*width;
-% for convective heat transfer set ht to 1 else set it to 0
+% for convective heat tranmdot0sfer set ht to 1 else set it to 0
 ht = 1;
 l = 1;
 sig0 = 400;
-B = 1.6;
+B = 1.4;
 R = 4125;
 gam =1.4;
 

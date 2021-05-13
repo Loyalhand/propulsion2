@@ -78,13 +78,13 @@ for i = 2:length(A)-1
     Icumulative = Icumulative + I(i-1,1);
     Ic(i-1,1) = Icumulative;
     Power(i,1) = V(i-1,1)*I(i-1,1);
-    totalPower = totalPower + Power(i,1);
+    totalPower = totalPower + Power(i,1)
     Powerc(i-1,1) = totalPower;
-    Pow = (G*(1/eta-1)*1/eta*mdot + Pow);
+    Pow = (G*(1/eta-1)*1/eta*mdot + Pow)
     Tt2(i,1) = T*(1+(gam-1)/2*M^2);
     Pt2(i,1) = P*(1+(gam-1)/2*M^2)^(gam/(gam-1));
-    md = rho*u*A(i);
-    i
+    md = rho*u*A(i)
+    
 end
 
 thrust = P/R/T*u*A(end)*(u-u0)+P*A(end)-P0*A(1);
