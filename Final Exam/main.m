@@ -16,7 +16,7 @@ i = 1;
 Table = zeros(700000,5);
 A = zeros(700000,1);
 
-for pic = 1:.01:6
+for pic = 2:.01:3
     pit = 1/pic
     taut = 1-etat*(1-pit^((gam-1)/gam))
     T4 = T3*taut
